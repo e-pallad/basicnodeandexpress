@@ -28,7 +28,9 @@ app.get('/now', function(req, res, next) {
     res.send({"time": req.timestamp});
 });
 
-
+app.get("/:word/echo", (req, res) => {
+    res.json({"echo": req.params.word})
+})
 
 
 
