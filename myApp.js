@@ -21,7 +21,12 @@ app.get("/json", (req, res) => {
     res.json({"message": json_string})
 })
 
-
+app.get('/now', function(req, res, next) {
+    req.timestamp = new Date().toString();
+    next();
+}, function(req, res) {
+    res.send({"time": req.timestamp});
+});
 
 
 
