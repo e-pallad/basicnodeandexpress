@@ -1,9 +1,13 @@
 var express = require('express');
+var bodyParser = require("body-parser");
 var app = express();
 
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/views/index.html");
 });
+
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 app.use(function middleware(req, res, next) {
     console.log(req.method + " " + req.path + " - " + req.ip);
@@ -34,6 +38,11 @@ app.get("/:word/echo", (req, res) => {
 
 app.get("/name", (req, res) => {
     res.json({"name": req.query.first + " " + req.query.last})
+})
+
+app.post("/name", function(req, res) {
+    var string = req.body.first + " " + req.body.last;
+    res.json({ name: string });
 })
 
 
